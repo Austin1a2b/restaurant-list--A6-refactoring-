@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
+const restaurantData = require('./models/restaurantListData')
 
 //載入靜態檔案
 app.use(express.static('public'))
@@ -29,9 +30,14 @@ const restaurantsList = require('./restaurant')
 
 //index 頁面路由架構  --資料來源 後續要改為 從資料庫取得 
 app.get('/', (req, res) => {
-  res.render('index', { restaurantsList: restaurantsList.results })
+  restaurantData.find()
+    .lean()
+    .then(restaurantsList => res.render('index', { restaurantsList: restaurantsList }))
+    .catch(error => console.error(error))
 })
 
+
+/*
 //show 頁面路由架構  --資料來源 後續要改為 從資料庫取得 
 app.get('/restaurants/:restaurant_id', (req, res) => {
   const restaurant_id = req.params.restaurant_id
@@ -48,9 +54,9 @@ app.get('/search', (req, res) => {
     )
   })
   res.render('index', { restaurantsList: restaurants, keyword: keyword })
-
 })
 
+*/
 
 
 app.listen(port, () => {
