@@ -24,7 +24,6 @@ const db = mongoose.connection
 db.on('error', () => { console.log('mongodb error!') })
 db.once('open', () => { console.log('connection success') })
 
-
 //提取資料庫的內容 至js 中 --後續要刪掉 
 const restaurantsList = require('./restaurant')
 
@@ -36,24 +35,45 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
+// new 頁面- 新增一家餐廳
+app.get('/restaurants/new', (req, res) => {
+  console.log('new OK')
+  res.render('new',)
+})
+
 //show 頁面路由架構 
 app.get('/restaurants/:restaurant_id', (req, res) => {
   const restaurant_id = req.params.restaurant_id
   restaurantData.findById(restaurant_id)
     .lean()
     .then(restaurant => res.render('show', { restaurant: restaurant }))
+    .catch(error => console.error(error))
 })
 
 // edit頁面 路由架構 
-app.get('/restaurants/edit/:restaurant_id', (req, res) => {
+app.get('/restaurants/:restaurant_id/edit', (req, res) => {
   const restaurant_id = req.params.restaurant_id
   restaurantData.findById(restaurant_id)
     .lean()
     .then(restaurant => res.render('edit', { restaurant: restaurant }))
+    .catch(error => console.error(error))
 })
 
-
-
+//接收表單資料,更新資料庫內容,=> 餐廳詳細資料的網頁
+app.post('/restaurants/:restaurant_id/edit', (req, res) => {
+  const restaurant_id = req.params.restaurant_id
+  return restaurantData.findById(restaurant_id)
+    .then(restaurantdata => {
+      restaurantdata.name = req.body.name
+      restaurantdata.category = req.body.category
+      restaurantdata.location = req.body.location
+      restaurantdata.phone = req.body.phone
+      restaurantdata.description = req.body.description
+      return restaurantdata.save()
+    })
+    .then(() => res.redirect(`/restaurants/${restaurant_id}`))
+    .catch(error => console.error(error))
+})
 
 
 /*

@@ -16,6 +16,10 @@
   </div>
 </div>
 
+<div>
+  <a href="/restaurants/new">新增餐廳</a>
+</div>
+
 
 <!-- restaurant list -->
 <div class="container mt-5">
@@ -40,8 +44,8 @@
           </div>
         </a>
         <div>
-          <a href="/restaurants/edit/{{this._id}}">Edit</a>
-          <a href="">Detail</a>
+          <a href="/restaurants/{{this._id}}/edit">Edit</a>
+          <a href="/restaurants/{{this._id}}">Detail</a>
           <a href="">Delete</a>
         </div>
         {{/each}}

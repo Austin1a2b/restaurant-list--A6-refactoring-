@@ -1,4 +1,4 @@
-<form action="" method="POST">
+<form action="/restaurants/{{restaurant._id}}/edit" method="POST">
   <div>
     餐廳名稱
     <input type="text" name="name" placeholder="餐廳名稱" value={{restaurant.name}} size="50">
@@ -19,4 +19,6 @@
     關於餐廳
     <input type=" text" name="description" placeholder="關於餐廳" value="{{{restaurant.description}}}" size="80">
   </div>
+  <button type="submit">送出表單</button>
+  <a href="/">back</a>
 </form>
