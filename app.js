@@ -7,7 +7,7 @@ const restaurantData = require('./models/restaurantListData')
 
 //載入靜態檔案
 app.use(express.static('public'))
-// 載入下一行 才能使用 , req.body.名稱
+// 載入下一行 , 後續才能使用 req.body.
 app.use(express.urlencoded({ extended: true }))
 
 //設定使用樣板引擎
@@ -28,7 +28,7 @@ db.once('open', () => { console.log('connection success') })
 //提取資料庫的內容 至js 中 --後續要刪掉 
 const restaurantsList = require('./restaurant')
 
-//index 頁面路由架構  --資料來源 後續要改為 從資料庫取得 
+//index 頁面路由架構  
 app.get('/', (req, res) => {
   restaurantData.find()
     .lean()
@@ -36,15 +36,27 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
-
-/*
-//show 頁面路由架構  --資料來源 後續要改為 從資料庫取得 
+//show 頁面路由架構 
 app.get('/restaurants/:restaurant_id', (req, res) => {
   const restaurant_id = req.params.restaurant_id
-  const restaurant = restaurantsList.results.find(restaurant => restaurant.id.toString() === restaurant_id)
-  res.render('show', { restaurant: restaurant })
+  restaurantData.findById(restaurant_id)
+    .lean()
+    .then(restaurant => res.render('show', { restaurant: restaurant }))
 })
 
+// edit頁面 路由架構 
+app.get('/restaurants/edit/:restaurant_id', (req, res) => {
+  const restaurant_id = req.params.restaurant_id
+  restaurantData.findById(restaurant_id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant: restaurant }))
+})
+
+
+
+
+
+/*
 //搜尋功能  --資料來源 後續要改為 從資料庫取得 
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
