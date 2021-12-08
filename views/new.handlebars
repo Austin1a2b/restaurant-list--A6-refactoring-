@@ -1,1 +1,28 @@
-<h5>some</h5>
+<form action="/restaurants/new" method="POST">
+  <div>
+    餐廳名稱
+    <input type="text" name="name" placeholder="餐廳名稱" size="50">
+  </div>
+  <div>
+    餐廳類別
+    <input type="text" name="category" placeholder="餐廳類別" size="50">
+  </div>
+  <div>
+    餐廳地址
+    <input type="text" name="location" placeholder="餐廳地址" size="50">
+  </div>
+  <div>
+    餐廳電話
+    <input type=" text" name="phone" placeholder="餐廳電話" size="50">
+  </div>
+  <div>
+    餐廳照片
+    <input type=" text" name="image" placeholder="餐廳照片" value="{{{restaurant.image}}}" size="80">
+  </div>
+  <div>
+    關於餐廳
+    <input type=" text" name="description" placeholder="關於餐廳" size="80">
+  </div>
+  <button type="submit">送出表單</button>
+  <a href="/">back</a>
+</form>

@@ -28,7 +28,7 @@
       <div class="card-columns">
         <!--表單迴圈由此開始-->
         {{#each restaurantsList}}
-        <a href="/restaurants/{{this._id}}" class="text-secondary">
+        <a href="/restaurants/show/{{this._id}}" class="text-secondary">
           <div class="card mb-3">
             <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
             <div class="card-body p-3">
@@ -45,7 +45,7 @@
         </a>
         <div>
           <a href="/restaurants/{{this._id}}/edit">Edit</a>
-          <a href="/restaurants/{{this._id}}">Detail</a>
+          <a href="/restaurants/show/{{this._id}}">Detail</a>
           <a href="">Delete</a>
         </div>
         {{/each}}

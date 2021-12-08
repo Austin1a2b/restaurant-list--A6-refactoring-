@@ -37,12 +37,19 @@ app.get('/', (req, res) => {
 
 // new 頁面- 新增一家餐廳
 app.get('/restaurants/new', (req, res) => {
-  console.log('new OK')
   res.render('new',)
 })
 
+//接收new的表單內容 , 並儲存到資料庫
+app.post('/restaurants/new', (req, res) => {
+  const { name, category, location, phone, description } = req.body
+  return restaurantData.create({ name, category, location, phone, description })
+    .then(res.redirect('/'))
+    .catch(console.log(error))
+})
+
 //show 頁面路由架構 
-app.get('/restaurants/:restaurant_id', (req, res) => {
+app.get('/restaurants/show/:restaurant_id', (req, res) => {
   const restaurant_id = req.params.restaurant_id
   restaurantData.findById(restaurant_id)
     .lean()
@@ -68,10 +75,11 @@ app.post('/restaurants/:restaurant_id/edit', (req, res) => {
       restaurantdata.category = req.body.category
       restaurantdata.location = req.body.location
       restaurantdata.phone = req.body.phone
+      restaurantdata.image = req.body.image
       restaurantdata.description = req.body.description
       return restaurantdata.save()
     })
-    .then(() => res.redirect(`/restaurants/${restaurant_id}`))
+    .then(() => res.redirect(`/restaurants/show/${restaurant_id}`))
     .catch(error => console.error(error))
 })
 
