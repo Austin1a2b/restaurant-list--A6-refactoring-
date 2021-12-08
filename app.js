@@ -25,8 +25,6 @@ const db = mongoose.connection
 db.on('error', () => { console.log('mongodb error!') })
 db.once('open', () => { console.log('connection success') })
 
-//提取資料庫的內容 至js 中 --後續要刪掉 
-const restaurantsList = require('./restaurant')
 
 //index 頁面路由架構  
 app.get('/', (req, res) => {
@@ -92,19 +90,6 @@ app.post('/restaurants/:restaurant_id/delete', (req, res) => {
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
-
-/*
-//搜尋功能  --資料來源 後續要改為 從資料庫取得 
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const restaurants = restaurantsList.results.filter(restaurant => {
-    return (restaurant.name.toLowerCase().includes(keyword.toLowerCase()) ||
-      restaurant.category.toLowerCase().includes(keyword.toLowerCase())
-    )
-  })
-  res.render('index', { restaurantsList: restaurants, keyword: keyword })
-})
-*/
 
 app.listen(port, () => {
   console.log(`Express is running on http://localhost:${port}`)
