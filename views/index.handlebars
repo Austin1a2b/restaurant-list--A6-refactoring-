@@ -43,10 +43,12 @@
             </div>
           </div>
         </a>
-        <div>
-          <a href="/restaurants/{{this._id}}/edit">Edit</a>
-          <a href="/restaurants/show/{{this._id}}">Detail</a>
-          <a href="">Delete</a>
+        <div class="d-flex justify-content-end">
+          <a href="/restaurants/{{this._id}}/edit" class="mx-2">Edit</a>
+          <a href="/restaurants/show/{{this._id}}" class="mx-2">Detail</a>
+          <form action="/restaurants/{{ this._id }}/delete" method="POST" style="display: inline">
+            <button type="submit" class="mx-2">delete</button>
+          </form>
         </div>
         {{/each}}
 

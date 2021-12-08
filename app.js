@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
+const { findById } = require('./models/restaurantListData')
 const restaurantData = require('./models/restaurantListData')
 
 //載入靜態檔案
@@ -83,6 +84,14 @@ app.post('/restaurants/:restaurant_id/edit', (req, res) => {
     .catch(error => console.error(error))
 })
 
+//新增刪除功能
+app.post('/restaurants/:restaurant_id/delete', (req, res) => {
+  const id = req.params.restaurant_id
+  return restaurantData.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
 
 /*
 //搜尋功能  --資料來源 後續要改為 從資料庫取得 
@@ -95,9 +104,7 @@ app.get('/search', (req, res) => {
   })
   res.render('index', { restaurantsList: restaurants, keyword: keyword })
 })
-
 */
-
 
 app.listen(port, () => {
   console.log(`Express is running on http://localhost:${port}`)
