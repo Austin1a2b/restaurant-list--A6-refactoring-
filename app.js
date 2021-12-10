@@ -3,7 +3,6 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
-const { findById } = require('./models/restaurantListData')
 const restaurantData = require('./models/restaurantListData')
 
 //載入靜態檔案
@@ -44,7 +43,7 @@ app.post('/restaurants/new', (req, res) => {
   const { name, category, location, phone, description } = req.body
   return restaurantData.create({ name, category, location, phone, description })
     .then(res.redirect('/'))
-    .catch(console.log(error))
+    .catch(error => console.log(error))
 })
 
 //show 頁面路由架構 
@@ -82,13 +81,27 @@ app.post('/restaurants/:restaurant_id/edit', (req, res) => {
     .catch(error => console.error(error))
 })
 
-//新增刪除功能
+//刪除功能
 app.post('/restaurants/:restaurant_id/delete', (req, res) => {
   const id = req.params.restaurant_id
   return restaurantData.findById(id)
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
+})
+
+//搜尋功能 
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  restaurantData.find()
+    .lean()
+    .then((restaurantList) => {
+      const searchResult = restaurantList.filter(restaurant => {
+        return (restaurant.name.toLowerCase().includes(keyword.toLowerCase()) ||
+          restaurant.category.toLowerCase().includes(keyword.toLowerCase()))
+      })
+      res.render('index', { restaurantsList: searchResult })
+    })
 })
 
 app.listen(port, () => {
