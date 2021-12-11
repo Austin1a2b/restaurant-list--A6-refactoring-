@@ -6,12 +6,12 @@ const restaurantSchema = new Schema({
     type: String,
     required: true
   },
-  name_en: String,
+  nameEn: String,
   category: String,
   image: String,
   location: String,
   phone: String,
-  google_map: String,
+  googleMap: String,
   rating: Number,
   description: String,
 })

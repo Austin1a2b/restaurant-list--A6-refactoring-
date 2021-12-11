@@ -40,8 +40,8 @@ app.get('/restaurants/new', (req, res) => {
 
 //接收new的表單內容 , 並儲存到資料庫
 app.post('/restaurants/new', (req, res) => {
-  const { name, name_en, category, location, phone, rating, image, description, google_map } = req.body
-  return restaurantData.create({ name, name_en, category, location, phone, rating, image, description, google_map })
+  const { name, nameEn, category, location, phone, rating, image, description, googleMap } = req.body
+  return restaurantData.create({ name, nameEn, category, location, phone, rating, image, description, googleMap })
     .then(res.redirect('/'))
     .catch(error => console.log(error))
 })
@@ -67,18 +67,18 @@ app.get('/restaurants/:restaurant_id/edit', (req, res) => {
 //接收表單資料,更新資料庫內容,=> 餐廳詳細資料的網頁
 app.post('/restaurants/:restaurant_id/edit', (req, res) => {
   const restaurant_id = req.params.restaurant_id
-  const { name, name_en, category, location, phone, rating, image, description, google_map } = req.body
+  const { name, nameEn, category, location, phone, rating, image, description, googleMap } = req.body
   return restaurantData.findById(restaurant_id)
     .then(restaurantdata => {
       restaurantdata.name = name
-      restaurantdata.name_en = name_en
+      restaurantdata.nameEn = nameEn
       restaurantdata.category = category
       restaurantdata.location = location
       restaurantdata.phone = phone
       restaurantdata.image = image
       restaurantdata.description = description
       restaurantdata.rating = rating
-      restaurantdata.google_map = google_map
+      restaurantdata.googleMap = googleMap
       return restaurantdata.save()
     })
     .then(() => res.redirect(`/restaurants/show/${restaurant_id}`))
