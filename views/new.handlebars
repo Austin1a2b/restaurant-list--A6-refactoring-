@@ -1,19 +1,27 @@
 <form action="/restaurants/new" method="POST">
   <div>
-    餐廳名稱
-    <input type="text" name="name" placeholder="餐廳名稱" size="50">
+    餐廳名稱(必填)
+    <input type="text" name="name" placeholder="餐廳名稱" size="50" required>
   </div>
   <div>
-    餐廳類別
-    <input type="text" name="category" placeholder="餐廳類別" size="50">
+    餐廳英文名稱
+    <input type="text" name="name_en" placeholder="餐廳英文名稱" size="46">
   </div>
   <div>
-    餐廳地址
-    <input type="text" name="location" placeholder="餐廳地址" size="50">
+    餐廳類別(必填)
+    <input type="text" name="category" placeholder="餐廳類別" size="50" required>
   </div>
   <div>
-    餐廳電話
-    <input type=" text" name="phone" placeholder="餐廳電話" size="50">
+    餐廳地址(必填)
+    <input type="text" name="location" placeholder="餐廳地址" size="50" required>
+  </div>
+  <div>
+    餐廳電話(必填)
+    <input type=" text" name="phone" placeholder="餐廳電話" size="50" required>
+  </div>
+  <div>
+    餐廳評分(0~5分)
+    <input type="number" name="rating" placeholder="評分" step="0.1" min="0" max="5">
   </div>
   <div>
     餐廳照片
@@ -22,6 +30,10 @@
   <div>
     關於餐廳
     <input type=" text" name="description" placeholder="關於餐廳" size="80">
+  </div>
+  <div>
+    google map
+    <input type="url" name="google_map" placeholder="google map" size="77">
   </div>
   <button type="submit">送出表單</button>
   <a href="/">back</a>
