@@ -1,4 +1,4 @@
-<form action="/restaurants/{{restaurant._id}}/edit" method="POST">
+<form action="/restaurants/{{restaurant._id}}?_method=put" method="POST">
   <div>
     餐廳名稱(必填)
     <input type="text" name="name" placeholder="餐廳名稱" value="{{{restaurant.name}}}" size="50" required>
@@ -36,7 +36,6 @@
     google map
     <input type="url" name="googleMap" placeholder="google map" value="{{{restaurant.googleMap}}}" size="77">
   </div>
-
   <button type="submit">送出表單</button>
   <a href="/">back</a>
 </form>
