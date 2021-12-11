@@ -1,11 +1,11 @@
 <form action="/restaurants/{{restaurant._id}}/edit" method="POST">
   <div>
     餐廳名稱
-    <input type="text" name="name" placeholder="餐廳名稱" value={{restaurant.name}} size="50">
+    <input type="text" name="name" placeholder="餐廳名稱" value="{{{restaurant.name}}}" size="50">
   </div>
   <div>
     餐廳類別
-    <input type="text" name="category" placeholder="餐廳類別" value={{restaurant.category}} size="50">
+    <input type="text" name="category" placeholder="餐廳類別" value="{{{restaurant.category}}}" size="50">
   </div>
   <div>
     餐廳地址
