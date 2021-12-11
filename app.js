@@ -40,8 +40,8 @@ app.get('/restaurants/new', (req, res) => {
 
 //接收new的表單內容 , 並儲存到資料庫
 app.post('/restaurants/new', (req, res) => {
-  const { name, category, location, phone, description } = req.body
-  return restaurantData.create({ name, category, location, phone, description })
+  const { name, name_en, category, location, phone, rating, image, description, google_map } = req.body
+  return restaurantData.create({ name, name_en, category, location, phone, rating, image, description, google_map })
     .then(res.redirect('/'))
     .catch(error => console.log(error))
 })
@@ -67,14 +67,18 @@ app.get('/restaurants/:restaurant_id/edit', (req, res) => {
 //接收表單資料,更新資料庫內容,=> 餐廳詳細資料的網頁
 app.post('/restaurants/:restaurant_id/edit', (req, res) => {
   const restaurant_id = req.params.restaurant_id
+  const { name, name_en, category, location, phone, rating, image, description, google_map } = req.body
   return restaurantData.findById(restaurant_id)
     .then(restaurantdata => {
-      restaurantdata.name = req.body.name
-      restaurantdata.category = req.body.category
-      restaurantdata.location = req.body.location
-      restaurantdata.phone = req.body.phone
-      restaurantdata.image = req.body.image
-      restaurantdata.description = req.body.description
+      restaurantdata.name = name
+      restaurantdata.name_en = name_en
+      restaurantdata.category = category
+      restaurantdata.location = location
+      restaurantdata.phone = phone
+      restaurantdata.image = image
+      restaurantdata.description = description
+      restaurantdata.rating = rating
+      restaurantdata.google_map = google_map
       return restaurantdata.save()
     })
     .then(() => res.redirect(`/restaurants/show/${restaurant_id}`))
