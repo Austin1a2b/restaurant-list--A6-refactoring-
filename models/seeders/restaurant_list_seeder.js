@@ -1,16 +1,13 @@
-const mongoose = require('mongoose')
+const db = require('../../config/mongoose')
+
+//提取  設定的 mongodb 格式
 const restaurantListData = require('../restaurantListData')
 
-mongoose.connect('mongodb://localhost/restaurant_list')
-const db = mongoose.connection
-
+//提取 json  檔案
 const restaurant = require('../../restaurant.json')
 const simulationData = restaurant.results
 
-db.on('error', () => { console.log(error) })
-
 db.once('open', () => {
-  console.log('connection success')
   simulationData.forEach(data => restaurantListData.create({
     name: data.name,
     nameEn: data.name_en,
@@ -22,4 +19,5 @@ db.once('open', () => {
     rating: data.rating,
     description: data.description,
   }))
+  console.log('done')
 })
