@@ -13,12 +13,12 @@ db.once('open', () => {
   console.log('connection success')
   simulationData.forEach(data => restaurantListData.create({
     name: data.name,
-    name_en: data.nameEn,
+    nameEn: data.name_en,
     category: data.category,
     image: data.image,
     location: data.location,
     phone: data.phone,
-    google_map: data.googleMap,
+    googleMap: data.google_map,
     rating: data.rating,
     description: data.description,
   }))

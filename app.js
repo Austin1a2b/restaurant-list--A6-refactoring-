@@ -7,7 +7,7 @@ const methodOverride = require('method-override')
 const restaurantData = require('./models/restaurantListData')
 
 const routes = require('./routes')
-app.use(routes)
+
 
 //載入靜態檔案
 app.use(express.static('public'))
@@ -19,6 +19,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 app.use(methodOverride('_method'))
+app.use(routes)
 
 //設定 port
 const port = 3000
